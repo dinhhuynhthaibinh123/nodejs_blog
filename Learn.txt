@@ -1,0 +1,18 @@
+Các thư viện sử dụng:
+- express( famework của nodejs)
+- morgan(in ra các log khi gửi request)
+- express-handlebars(template engine)
+- method-overide(dùng để overide các phương thức(PUT,PATCH,DELETE,..)
+(Hiện tại html chỉ hỗ trợ GET/POST).
+- sass ( dịch file scss -> css)
+- mongoose (dung model các object mongodb)
+
+Cây thư mục của project
+-src:
+   + app: chứa folder(Controllers,models) dùng để cấu hình projetc theo MVC model.
+   + config: dùng để đến cấu hình kết nối database (localhost)
+   + public: chứa các file tĩnh như css,image
+   + resources: chứa các file scss, và các Views(các file handlebars)
+   + routes: định nghĩa các tuyến đường,lộ trình (bộ định tuyến)
+   + utils: định nghía các file hỗ trợ (vd: convert mongoose -> to Object JS)
+-index.js (file init các thư viện)
