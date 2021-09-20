@@ -14,6 +14,17 @@ class MeController {
       )
       .catch(next);
   }
+   //[GET] /me/trash/courses
+  trashCourses(req, res, next) {
+    //Hàm này lấy dữ liệu mà deleted = true
+    Course.findDeleted({})
+      .then((courses) =>
+        res.render("me/trash-courses", {
+          courses: multipleMongooseToObject(courses),
+        })
+      )
+      .catch(next);
+  }
 }
 
 module.exports = new MeController();

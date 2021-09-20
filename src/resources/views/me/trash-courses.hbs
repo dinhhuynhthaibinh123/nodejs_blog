@@ -1,7 +1,7 @@
 <div class="mt-4">
   <div>
-    <h3>Khóa học của tôi</h3>
-    <a href="/me/trash/courses">Thùng rác</a>
+    <a href="/me/stored/courses">Quay lại</a>
+    <h3>Khóa học đã xóa</h3>
   </div>
 
   <table class="table">
@@ -23,16 +23,16 @@
       <td>{{this.level}}</td>
       <td>{{this.createAt}}</td>
       <td>
-          <a href="/courses/{{this._id}}/edit" class="btn btn-link">Sửa</a>
-          <a href="" class="btn btn-link" data-bs-toggle="modal" data-id="{{this._id}}" data-bs-target="#delete-course-modal">Xóa</a>
+          <a href="/courses/{{this._id}}/edit" class="btn btn-link btn-restore" data-id="{{this._id}}">Khôi phục</a>
+          <a href="" class="btn btn-link" data-bs-toggle="modal" data-id="{{this._id}}" data-bs-target="#delete-course-modal">Xóa vĩnh viễn</a>
       </td>
     </tr>
 
     {{else}}
     <tr>
       <td colspan="5" class="text-center">
-        Bạn chưa đăng khóa học nào.
-        <a href="/courses/create">Đăng khóa học</a>
+        Thùng rác trống.
+        <a href="/me/stored/courses">Danh sách khóa học</a>
       </td>
     </tr>
     {{/each}}
@@ -45,7 +45,9 @@
       var courseId;
       const btnDeleteCourse = document.getElementById('btn-delete-course');
       const deleteForm = document.forms["delete-form"];
-    //Khi thằng dialog click
+      const restoreForm = document.forms["restore-form"];
+      var btnRestore = $(".btn-restore");
+      //Khi thằng dialog click
       $('#delete-course-modal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); 
         var id = button.data('id'); 
@@ -53,9 +55,16 @@
       });
      
       btnDeleteCourse.onclick = function () {
-        deleteForm.action ="/courses/"+ courseId + "?_method=DELETE";
+        deleteForm.action ="/courses/"+ courseId + "/force?_method=DELETE";
         deleteForm.submit();
       }
+
+      btnRestore.click(function (event) {
+        event.preventDefault();
+        courseId = $(this).data("id");
+        restoreForm.action ="/courses/"+ courseId + "/restore?_method=PATCH";
+        restoreForm.submit();
+      })
 });
 </script>
 
@@ -63,6 +72,7 @@
 
 
 {{!-- Hidden form --}}
+<form name="restore-form" method="post"></form>
 <form name="delete-form" method="post"></form>
 
 
@@ -77,11 +87,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Bạn có chắc chắn xóa khóa học này?</p>
+        <p>Bạn có chắc chắn xóa khóa vĩnh viễn học này?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-        <button id="btn-delete-course" type="button" class="btn btn-danger" action="">Xóa bỏ</button>
+        <button id="btn-delete-course" type="button" class="btn btn-danger" action="">Xóa vĩnh viễn</button>
       </div>
     </div>
   </div>
