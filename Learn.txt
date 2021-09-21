@@ -6,6 +6,7 @@ Các thư viện sử dụng:
 (Hiện tại html chỉ hỗ trợ GET/POST).
 - sass ( dịch file scss -> css)
 - mongoose (dung model các object mongodb)
+- mongoose-delete (dùng trong soft delete)
 
 Cây thư mục của project
 -src:
@@ -16,3 +17,12 @@ Cây thư mục của project
    + routes: định nghĩa các tuyến đường,lộ trình (bộ định tuyến)
    + utils: định nghía các file hỗ trợ (vd: convert mongoose -> to Object JS)
 -index.js (file init các thư viện)
+
+
+
+Flow của project:
+1.Khi truy cập url thì sẽ được Routes sẽ chuyễn hướng
+2.Controllers tương ứng với mỗi Routes sẽ định nghĩa chỉ tiết tuyến đường
+3.Đến Controller sẽ gọi qua Model và View
+4.Thao tác với dữ liệu với Model
+5.Render các View tương ứng và map dữ liệu vào (file handlebar)
